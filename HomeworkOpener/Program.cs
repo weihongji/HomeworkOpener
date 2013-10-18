@@ -22,9 +22,10 @@ namespace Homework
                     if (i == 0 || IsOpenPastHomework(date)) {
                         OpenHomework(file);
                     }
-                    break;
+                    return;
                 }
             }
+            MessageBox.Show("没有找到最近7天以内的作业！", "没找到作业照片", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         static bool IsOpenPastHomework(DateTime date) {
