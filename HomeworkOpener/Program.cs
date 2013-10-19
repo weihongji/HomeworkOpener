@@ -10,16 +10,22 @@ namespace Homework
 {
     static class Program
     {
+        private static bool JumpOverWeekend = true; // If 'today' is in weekend, system will not show notification while homework is found in a day of the same weekend or in the last Friday.
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main() {
+            var isInWeekend = DateTime.Today.DayOfWeek == DayOfWeek.Saturday || DateTime.Today.DayOfWeek == DayOfWeek.Sunday;
             for (int i = 0; i > -7; i--) {
                 var date = DateTime.Today.AddDays(i);
+                if (JumpOverWeekend && isInWeekend && i != 0) {
+                    isInWeekend = date.AddDays(1).DayOfWeek == DayOfWeek.Saturday || date.AddDays(1).DayOfWeek == DayOfWeek.Sunday;
+                }
                 var file = GetFilePath(date);
                 if (!string.IsNullOrEmpty(file)) {
-                    if (i == 0 || IsOpenPastHomework(date)) {
+                    if (i == 0 || (JumpOverWeekend && isInWeekend) || IsOpenPastHomework(date)) {
                         OpenHomework(file);
                     }
                     return;
