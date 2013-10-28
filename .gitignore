@@ -1,2 +1,4 @@
 packages/
 obj/
+bin/*.pdb
+HomeworkOpener.v11.suo

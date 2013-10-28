@@ -17,9 +17,15 @@ namespace Homework
         /// </summary>
         [STAThread]
         static void Main() {
-            var isInWeekend = DateTime.Today.DayOfWeek == DayOfWeek.Saturday || DateTime.Today.DayOfWeek == DayOfWeek.Sunday;
+            var today = DateTime.Today;
+            if (string.IsNullOrEmpty(GetFilePath(today))) {
+                if (DateTime.Now.Hour < 18) {
+                    today = DateTime.Today.AddDays(-1);
+                }
+            }
+            var isInWeekend = today.DayOfWeek == DayOfWeek.Saturday || today.DayOfWeek == DayOfWeek.Sunday;
             for (int i = 0; i > -7; i--) {
-                var date = DateTime.Today.AddDays(i);
+                var date = today.AddDays(i);
                 if (JumpOverWeekend && isInWeekend && i != 0) {
                     isInWeekend = date.AddDays(1).DayOfWeek == DayOfWeek.Saturday || date.AddDays(1).DayOfWeek == DayOfWeek.Sunday;
                 }
