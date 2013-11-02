@@ -52,7 +52,7 @@ namespace Homework
             var dateString = date.ToString("yyyy-M-d");
             string path = string.Format(@"C:\Users\Me\Pictures\{0}", dateString);
             if (Directory.Exists(path)) {
-                return Directory.GetFiles(path).FirstOrDefault();
+                return Directory.GetFiles(path).FirstOrDefault(x => x.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase));
             }
             return null;
         }
